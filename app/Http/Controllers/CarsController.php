@@ -15,7 +15,10 @@ class CarsController extends Controller
      */
     public function index()
     {
-        $cars = Car::all();
+        $take = request()->query('take', Car::get()->count());
+        $skip = request()->query('skip', 0);
+
+        $cars = Car::skip($skip)->take($take)->get();
 
         return $cars;
     }
